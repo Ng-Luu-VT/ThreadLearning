@@ -30,7 +30,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cpunt Down"
+        android:text="Count Down"
         android:id="@+id/actMain_btnCountDown"/>
     <TextView
         android:textSize="20dp"

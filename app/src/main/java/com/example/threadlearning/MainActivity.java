@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Scanner scanner = new Scanner(System.in);
     private TextView tvResult;
     private EditText etStart, etStop;
-    private Button btnOkStart, btnOkStop;
+    private Button btnOkStart, btnOkStop, btnCountDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         etStop = findViewById(R.id.actMain_etStop);
         btnOkStart = findViewById(R.id.actMain_btnOkStart);
         btnOkStop = findViewById(R.id.actMain_btnOkStop);
+        btnCountDown = findViewById(R.id.actMain_btnCountDown);
 
         final CountTheNumberThread countTheNumberThread = new CountTheNumberThread();
         btnOkStart.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +51,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        CountDownThread countDownThread = new CountDownThread();
+        final CountDownThread countDownThread = new CountDownThread();
+        btnCountDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 }
