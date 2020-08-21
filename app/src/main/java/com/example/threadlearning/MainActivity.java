@@ -9,16 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CountDownThreadInterface{
 
-    Scanner scanner = new Scanner(System.in);
     private TextView tvResult;
     private EditText etStart, etStop;
     private Button btnOkStart, btnOkStop, btnCountDown;
+    private CountDownThread countDownThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Context context = getApplicationContext();
         init(context);
+        binEvent();
+    }
+
+    private void binEvent() {
+        countDownThread.setCountDownThreadInterface(this);
     }
 
     private void init(final Context context) {
@@ -51,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final CountDownThread countDownThread = new CountDownThread();
+        countDownThread = new CountDownThread();
         btnCountDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,12 +67,24 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
+                                //countDownThread = new CountDownThread();
+                                countDownThread.start();
                             }
                         });
                     }
                 });
             }
         });
+    }
+
+    @Override
+    public void getViewNow(ArrayList<Integer> list) {
+        for (int i : list
+        ) {
+            Toast toast = Toast.makeText(getApplicationContext(),i,Toast.LENGTH_LONG);
+            toast.show();
+        }
+        Toast toast = Toast.makeText(getApplicationContext(),"Hết giờ",Toast.LENGTH_LONG);
+        toast.show();
     }
 }

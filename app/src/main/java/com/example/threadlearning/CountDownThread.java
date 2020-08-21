@@ -19,6 +19,11 @@ public class CountDownThread extends Thread {
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = count; i > 0; i--) {
             list.add(i);
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
         countDownThreadInterface.getViewNow(list);
     }
